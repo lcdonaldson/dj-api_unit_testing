@@ -56,7 +56,8 @@ class ApiTestCase(TestCase):
 
 		# ============================  END USER3  ================================
 
-							         # FOLLOWING CASES
+					    # FOLLOWING CASES
+					
 		# Following
 		self.following = OwnerFollow(following=self.app_user2, follower=self.app_user)
 		self.following.save()
