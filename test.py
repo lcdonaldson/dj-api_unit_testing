@@ -110,16 +110,17 @@ class ApiTestCase(TestCase):
 		person = AppUser.objects.get(logon_credentials=member)
 		self.assertTrue(person.device_token == 'asd123')
 	
-	def testChangePassword(self):
+	def testForgotPassword(self):
 		client = Client()
 
-		post_params = {'userID': self.app_user.id, 'old_password': 'password', 'new_password': 'token'}
+		post_params = {'email': self.user.email}
 		# Checkout
-		response = client.post(reverse('app_api.views.change_password'), data=json.dumps(post_params), content_type='application/json')
+		response = client.post(reverse('app_api.views.forgot_password'), data=json.dumps(post_params), content_type='application/json')
 		json_data = response.json()
 		self.assertTemplateNotUsed(json_data['responseCode'] == 200)
 		self.assertTrue(json_data['responseCode'] == 200)
 
-		member = json_data['userID']
-		person = AppUser.objects.get(id=member)
-		self.assertTrue(person.logon_credentials)	
+		# Three proofs of email working. mail.outbox is only for testing purposes.
+		see = mail.outbox[0].to
+		self.assertEqual(len(mail.outbox), 1)
+		self.assertEqual(mail.outbox[0].subject, 'Password Reset')	
