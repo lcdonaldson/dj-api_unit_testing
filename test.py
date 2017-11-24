@@ -129,6 +129,24 @@ class ApiTestCase(TestCase):
 		
 # ****************** New Classs to test ************************
 
-class ListCreateCourse(generics.ListCreateAPIView):
-    queryset = models.Course.objects.all()
-    serializer_class = serializers.CourseSerializer
+from django.tests import TestCase
+
+class CourseTestCase(TestCase):
+ def setup(self):
+   // Create some objects here, that will show up in a 'test' database.
+
+ def test_course_list(self):
+   pass
+
+ def test_course_create(self):
+   pass
+
+ def test_course_retrieve(self):
+   pass
+
+ def test_course_update(self):
+   pass
+
+ def test_course_delete(self):
+   pass
+
