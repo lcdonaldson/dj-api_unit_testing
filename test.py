@@ -124,4 +124,11 @@ class ApiTestCase(TestCase):
 		# Three proofs of email working. mail.outbox is only for testing purposes.
 		see = mail.outbox[0].to
 		self.assertEqual(len(mail.outbox), 1)
-		self.assertEqual(mail.outbox[0].subject, 'Password Reset')	
+		self.assertEqual(mail.outbox[0].subject, 'Password Reset')
+
+		
+# ****************** New Classs to test ************************
+
+class ListCreateCourse(generics.ListCreateAPIView):
+    queryset = models.Course.objects.all()
+    serializer_class = serializers.CourseSerializer
